@@ -1,0 +1,8 @@
+dependencies:
+  idf: "^5.0"
+  pl_blackbox:
+    path: component
+    git: https://github.com/plasmapper/blackbox-esp-cpp.git
+  pl_mdns:
+    path: component
+    git: https://github.com/plasmapper/mdns-esp-cpp.git

@@ -1,0 +1,5 @@
+dependencies:
+  idf: "^5.0"
+  pl_blackbox:
+    path: component
+    git: https://github.com/plasmapper/blackbox-esp-cpp.git
