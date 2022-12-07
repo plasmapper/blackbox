@@ -7,7 +7,9 @@ This example contains firmware and client software that demonstrate the use of t
 1. Configurable UART and Wi-Fi interfaces.
 2. Configurable UART and network Modbus servers.
 3. mDNS server to simplify the device discovery on the LAN.
-4. Example of user-defined writable parameters, read-only parameters and read-only float data array.
+4. Example of user-defined writable parameters (Modbus holding registers 1000..1002).
+5. Example of user-defined read-only parameters (Modbus input registers 1000..1002).
+6. Example of a read-only float data array (Modbus input registers 2000..2099).
 
 ## ESP-IDF Firmware
 
