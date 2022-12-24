@@ -21,7 +21,8 @@ const uint32_t defaultModbusSerialServerUartBaudrate = 115200;
 const PL::UartParity defaultModbusSerialServerUartParity = PL::UartParity::even;
 const bool defaultModbusSerialServerUartEnabled = true;
 
-const bool defaultWiFiEnabled = false;
+const bool defaultWiFiEnabled = true;
+const bool defaultWiFiIpV4DhcpClientEnabled = true;
 
 const bool defaultModbusSerialServerEnabled = true;
 const bool defaultModbusNetworkServerEnabled = true;

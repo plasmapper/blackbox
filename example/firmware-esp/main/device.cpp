@@ -38,6 +38,7 @@ esp_err_t Device::Initialize() {
   ESP_RETURN_ON_ERROR (uart->SetParity (defaultModbusSerialServerUartParity), TAG, "uart set default parity failed");
   ESP_RETURN_ON_ERROR (defaultModbusSerialServerUartEnabled ? uart->Enable() : ESP_OK, TAG, "uart enable failed");
   ESP_RETURN_ON_ERROR (defaultWiFiEnabled ? wifi->Enable() : ESP_OK, TAG, "Wi-Fi enable failed");
+  ESP_RETURN_ON_ERROR (defaultWiFiIpV4DhcpClientEnabled ? wifi->EnableIpV4DhcpClient() : ESP_OK, TAG, "Wi-Fi IPv4 DHCP client enable failed");
   ESP_RETURN_ON_ERROR (defaultModbusSerialServerEnabled ? modbusSerialServer->Enable() : ESP_OK, TAG, "Modbus serial server enable failed");
   ESP_RETURN_ON_ERROR (defaultModbusNetworkServerEnabled ? modbusNetworkServer->Enable() : ESP_OK, TAG, "Modbus network server  enable failed");
   ESP_RETURN_ON_ERROR (defaultMdnsServerEnabled ? mdnsServer->Enable() : ESP_OK, TAG, "mDNS server enable failed");
