@@ -14,13 +14,15 @@ PL::BlackBoxHardwareInfo hardwareInfo = {"TestHardware", {1, 0, 0}, ""};
 
 //==============================================================================
 
-esp_err_t FlashHardwareInfo (nvs_handle_t handle) {
-  ESP_RETURN_ON_ERROR (nvs_set_str (handle, PL::BlackBox::hardwareInfoNameNvsKey.c_str(), hardwareInfo.name.c_str()), TAG, "write name failed");
-  ESP_RETURN_ON_ERROR (nvs_set_u16 (handle, PL::BlackBox::hardwareInfoMajorVersionNvsKey.c_str(), hardwareInfo.version.major), TAG, "write version major failed");
-  ESP_RETURN_ON_ERROR (nvs_set_u16 (handle, PL::BlackBox::hardwareInfoMinorVersionNvsKey.c_str(), hardwareInfo.version.minor), TAG, "write version minor failed");
-  ESP_RETURN_ON_ERROR (nvs_set_u16 (handle, PL::BlackBox::hardwareInfoPatchVersionNvsKey.c_str(), hardwareInfo.version.patch), TAG, "write version patch failed");
-  ESP_RETURN_ON_ERROR (nvs_set_str (handle, PL::BlackBox::hardwareInfoUidNvsKey.c_str(), hardwareInfo.uid.c_str()), TAG, "write UID failed");
-  ESP_RETURN_ON_ERROR (nvs_commit (handle), TAG, "commit failed");
+esp_err_t FlashHardwareInfo () {
+  PL::NvsNamespace nvsNamespace(PL::BlackBox::defaultHardwareInfoNvsNamespaceName, PL::NvsAccessMode::readWrite);
+  
+  ESP_RETURN_ON_ERROR(nvsNamespace.Write(PL::BlackBox::hardwareInfoNameNvsKey, hardwareInfo.name), TAG, "write name failed");
+  ESP_RETURN_ON_ERROR(nvsNamespace.Write(PL::BlackBox::hardwareInfoMajorVersionNvsKey, hardwareInfo.version.major), TAG, "write version major failed");
+  ESP_RETURN_ON_ERROR(nvsNamespace.Write(PL::BlackBox::hardwareInfoMinorVersionNvsKey, hardwareInfo.version.minor), TAG, "write version minor failed");
+  ESP_RETURN_ON_ERROR(nvsNamespace.Write(PL::BlackBox::hardwareInfoPatchVersionNvsKey, hardwareInfo.version.patch), TAG, "write version patch failed");
+  ESP_RETURN_ON_ERROR(nvsNamespace.Write(PL::BlackBox::hardwareInfoUidNvsKey, hardwareInfo.uid), TAG, "write UID failed");
+
   return ESP_OK;
 }
 
@@ -46,11 +48,6 @@ extern "C" void app_main(void) {
   printf ("Flashing hardware info:\nDevice name: %s\nVersion: %d.%d.%d\nUID: %s\n",
     hardwareInfo.name.c_str(), hardwareInfo.version.major, hardwareInfo.version.minor, hardwareInfo.version.patch, hardwareInfo.uid.c_str());
 
-  nvs_handle_t handle;
-  ESP_ERROR_CHECK (nvs_open (PL::BlackBox::hardwareInfoNvsNamespace.c_str(), NVS_READWRITE, &handle));
-
-  if (FlashHardwareInfo (handle) == ESP_OK)
+  if (FlashHardwareInfo () == ESP_OK)
     printf ("Done\n");
-
-  nvs_close (handle);
 }
