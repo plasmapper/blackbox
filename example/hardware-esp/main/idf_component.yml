@@ -1,5 +1,3 @@
 dependencies:
-  idf: "^5.0"
-  pl_blackbox:
-    path: component
-    git: https://github.com/plasmapper/blackbox-esp-cpp.git
+  idf: "^5.3"
+  plasmapper/pl_blackbox: "^2.0.0"
