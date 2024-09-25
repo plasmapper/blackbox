@@ -23,6 +23,7 @@ The firmware library and the protocol should have the following capabilities.
 
 [BlackBox C++ Class Component for ESP-IDF](https://github.com/plasmapper/blackbox-esp-cpp)  
 [BlackBox Modbus Client Library for LabVIEW](https://github.com/plasmapper/blackbox-modbus-client-labview)  
+[BlackBox Library for .NET](https://github.com/plasmapper/blackbox-dotnet)  
 
 ## Examples
 

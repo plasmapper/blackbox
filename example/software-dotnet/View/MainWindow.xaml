@@ -1,0 +1,248 @@
+﻿<Window x:Class="TestDevice.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewmodel="clr-namespace:TestDevice.ViewModel"
+        xmlns:local="clr-namespace:TestDevice.View"
+        d:DataContext="{d:DesignInstance d:Type=viewmodel:MainWindowViewModel}"
+        mc:Ignorable="d"
+        Title="{Binding WindowHeader}"
+        WindowStartupLocation="CenterScreen"
+        SizeToContent="WidthAndHeight">
+    <Window.Resources>
+        <ResourceDictionary Source="Style.xaml"/>
+    </Window.Resources>
+    <DockPanel>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem>
+                <TextBlock Text="{Binding Exception.Value}" HorizontalAlignment="Left" Width="500" />
+            </StatusBarItem>
+        </StatusBar>
+
+        <Button Width="0" Height="0" Margin="0"/>
+        <Grid Style="{StaticResource MainWindowTopLevelGrid}">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Vertical">
+                    <Label Content="Interface"/>
+                    <ComboBox SelectedItem="{Binding Connection.Interface.Value, UpdateSourceTrigger=LostFocus}" ItemsSource="{Binding Connection.InterfaceValues}" />
+                </StackPanel>
+
+                <Separator/>
+
+                <StackPanel Orientation="Vertical" Visibility="{Binding Connection.InterfaceIsSerial.Value, Converter={StaticResource BoolVisibleCollapsedConverter}}">
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Vertical">
+                            <Label Content="Port"/>
+                            <ComboBox SelectedItem="{Binding Connection.SerialPortName.Value, UpdateSourceTrigger=LostFocus}" ItemsSource="{Binding Connection.SerialPortNames.Value}" />
+                        </StackPanel>
+
+                        <Separator/>
+
+                        <StackPanel Orientation="Vertical">
+                            <Label Content="Baud rate"/>
+                            <TextBox Text="{Binding Connection.SerialBaudRate.Value}" Style="{StaticResource NumericControl}" />
+                        </StackPanel>
+
+                        <Separator/>
+
+                        <StackPanel Orientation="Vertical">
+                            <Label Content="Data bits"/>
+                            <TextBox Text="{Binding Connection.SerialDataBits.Value}" Style="{StaticResource NumericControl}" />
+                        </StackPanel>
+
+                        <Separator/>
+
+                        <StackPanel Orientation="Vertical">
+                            <Label Content="Parity"/>
+                            <ComboBox SelectedItem="{Binding Connection.SerialParity.Value, UpdateSourceTrigger=LostFocus}"
+                                  ItemsSource="{Binding Connection.SerialParityValues}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Converter={StaticResource ParityConverter}}"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <Separator/>
+
+                        <StackPanel Orientation="Vertical">
+                            <Label Content="Stop bits"/>
+                            <ComboBox SelectedItem="{Binding Connection.SerialStopBits.Value, UpdateSourceTrigger=LostFocus}"
+                                  ItemsSource="{Binding Connection.SerialStopBitsValues}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Converter={StaticResource StopBitsConverter}}"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <Separator/>
+
+                        <StackPanel Orientation="Vertical">
+                            <Label Content="Flow control"/>
+                            <ComboBox SelectedItem="{Binding Connection.SerialFlowControl.Value, UpdateSourceTrigger=LostFocus}"
+                                  ItemsSource="{Binding Connection.SerialFlowControlValues}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Converter={StaticResource FlowControlConverter}}"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <Separator/>
+
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Vertical">
+                            <Label Content="Protocol"/>
+                            <ComboBox SelectedItem="{Binding Connection.SerialProtocol.Value, UpdateSourceTrigger=LostFocus}"
+                                  ItemsSource="{Binding Connection.SerialProtocolValues}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Converter={StaticResource ModbusProtocolConverter}}"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <Separator/>
+
+                        <StackPanel Orientation="Vertical">
+                            <Label Content="Station address"/>
+                            <TextBox Text="{Binding Connection.SerialStationAddress.Value}" Style="{StaticResource NumericControl}" />
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Visibility="{Binding Connection.InterfaceIsNetwork.Value, Converter={StaticResource BoolVisibleCollapsedConverter}}">
+                    <StackPanel Orientation="Vertical">
+                        <Label Content="Address"/>
+                        <TextBox Text="{Binding Connection.NetworkAddress.Value}" />
+                    </StackPanel>
+
+                    <Separator/>
+
+                    <StackPanel Orientation="Vertical">
+                        <Label Content="Port"/>
+                        <TextBox Text="{Binding Connection.NetworkPort.Value}" Style="{StaticResource NumericControl}" />
+                    </StackPanel>
+
+                    <Separator/>
+
+                    <StackPanel Orientation="Vertical">
+                        <Label Content="Station address"/>
+                        <TextBox Text="{Binding Connection.NetworkStationAddress.Value}" Style="{StaticResource NumericControl}" />
+                    </StackPanel>
+
+                    <Separator/>
+
+                    <StackPanel Orientation="Vertical">
+                        <Label Content="Service name"/>
+                        <TextBox Text="{Binding Connection.ServiceName.Value}" />
+                    </StackPanel>
+
+                    <Separator/>
+
+                    <StackPanel Orientation="Vertical">
+                        <Label Content=""/>
+                        <Button Command="{Binding Connection.FindService}">Find</Button>
+                    </StackPanel>
+                </StackPanel>
+
+                <Separator />
+
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Vertical">
+                        <Label Content="Hardware"/>
+                        <TextBox Text="{Binding HardwareNameAndVersion.Value}" Width="{StaticResource LargeControlWidth}" IsReadOnly="True" />
+                    </StackPanel>
+
+                    <Separator/>
+
+                    <StackPanel Orientation="Vertical">
+                        <Label Content="UID"/>
+                        <TextBox Text="{Binding HardwareUid.Value}" Width="{StaticResource LargeControlWidth}" IsReadOnly="True" />
+                    </StackPanel>
+                </StackPanel>
+
+                <Separator/>
+
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Vertical">
+                        <Label Content="Firmware"/>
+                        <TextBox Text="{Binding FirmwareNameAndVersion.Value}" Width="{StaticResource LargeControlWidth}" IsReadOnly="True" />
+                    </StackPanel>
+
+                    <Separator/>
+
+                    <StackPanel Orientation="Vertical">
+                        <Label Content="Device name"/>
+                        <TextBox Text="{Binding DeviceName.Value}" Width="{StaticResource LargeControlWidth}" IsReadOnly="True" />
+                    </StackPanel>
+                </StackPanel>
+
+                <Separator/>
+
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Vertical">
+                        <Label Content="Parameter 1"/>
+                        <TextBox Text="{Binding Parameter1.Value}" Style="{StaticResource NumericControl}" />
+                    </StackPanel>
+
+                    <Separator/>
+
+                    <StackPanel Orientation="Vertical">
+                        <Label Content="Parameter 2"/>
+                        <TextBox Text="{Binding Parameter2.Value}" Style="{StaticResource NumericControl}" />
+                    </StackPanel>
+
+                    <Separator/>
+
+                    <StackPanel Orientation="Vertical">
+                        <Label Content="Parameter 3"/>
+                        <TextBox Text="{Binding Parameter3.Value}" Style="{StaticResource NumericControl}" />
+                    </StackPanel>
+
+                    <Separator/>
+
+                    <StackPanel Orientation="Vertical">
+                        <Label Content="Input 1"/>
+                        <TextBox Text="{Binding Input1.Value}" Style="{StaticResource NumericControl}" IsReadOnly="True" />
+                    </StackPanel>
+
+                    <Separator/>
+
+                    <StackPanel Orientation="Vertical">
+                        <Label Content="Input 2"/>
+                        <TextBox Text="{Binding Input2.Value}" Style="{StaticResource NumericControl}" IsReadOnly="True" />
+                    </StackPanel>
+
+                    <Separator/>
+
+                    <StackPanel Orientation="Vertical">
+                        <Label Content="Input 3"/>
+                        <TextBox Text="{Binding Input3.Value}" Style="{StaticResource NumericControl}" IsReadOnly="True" />
+                    </StackPanel>
+                </StackPanel>
+
+                <Separator/>
+
+                <Button Command="{Binding SaveAllConfigurations}">Save settings</Button>
+
+                <Separator/>
+
+                <Border Width="400" Height="300" HorizontalAlignment="Left" BorderThickness="1" BorderBrush="Black">
+                    <local:Graph x:Name="Graph" />
+                </Border>
+                
+                <Separator/>
+
+                <Button Command="{Binding ReadGraph}">Read graph</Button>
+            </StackPanel>
+        </Grid>
+    </DockPanel>
+</Window>

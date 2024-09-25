@@ -22,3 +22,8 @@ This example contains firmware and client software that demonstrate the use of t
 2. Install the required VIPM packages using `Test Device.vipc`.
 3. Configure the device interfaces and servers using the `BlackBox Configurator.vi` from the `PL BlackBox Modbus Client` package examples.
 4. Use `Test Device.vi` to control the device.
+
+## .NET Software
+
+1. Download and build the [BlackBox Configurator](https://github.com/plasmapper/blackbox-dotnet/tree/main/Examples/BlackBoxConfigurator) to configure the device interfaces and servers.
+2. Download and build the [software](software-dotnet) to control the device.
