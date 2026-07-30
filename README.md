@@ -27,4 +27,4 @@ The firmware library and the protocol should have the following capabilities.
 
 ## Examples
 
-[BlackBox Firmware and Software Examples](examples)
+[BlackBox Firmware and Software Examples](example)
