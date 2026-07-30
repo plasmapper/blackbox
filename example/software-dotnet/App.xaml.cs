@@ -12,7 +12,7 @@ namespace TestDevice
 
         public App()
         {
-            _client = new(new System.IO.Ports.SerialPort());
+            _client = new(new PL.Modbus.SerialStream(new System.IO.Ports.SerialPort()));
             _client.ReadTimeout = 1000;
             _systemModel = new(_client);
             _monitorThread = new Thread(HardwareMonitor);

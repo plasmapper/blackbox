@@ -14,7 +14,7 @@ namespace TestDevice.View
             DataContext = viewModel;
             Utilities.AddDefautTextBoxEventHandlers(this);
 
-            Graph.Interaction.Disable();
+            Graph.UserInputProcessor.Disable();
             _plot = Graph.Plot.Add.Signal(_graphData);
             _plot.MarkerSize = 0;
             viewModel.GraphData.ValueChanged += (s, e) =>
